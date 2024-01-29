@@ -10,9 +10,9 @@ public class GatewayConfig {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(p -> p.path("/v1/**")
+                .route(p -> p.path("/acc")
                         .filters(f -> f.stripPrefix(1))
-                        .uri("https://localhost:8080"))
+                        .uri("http://localhost:8080/accounts/541/transactions"))
                 .build();
     }
 }
