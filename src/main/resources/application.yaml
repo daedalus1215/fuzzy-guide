@@ -2,9 +2,9 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: my_route
-          uri: https://example.org
+        - id: root-redirect
+          uri: http://localhost:8080/accounts/123/transactions
           predicates:
-            - Path=/v1/**
+            - Path=/
           filters:
-            - StripPrefix=1
+            - RewritePath=/, /accounts/123/transactions
