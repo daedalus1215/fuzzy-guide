@@ -2,9 +2,10 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: root-redirect
-          uri: http://localhost:8080/accounts/123/transactions
+        - id: transactions_route
+          uri: http://localhost:8080/accounts/{accountId}/transactions
           predicates:
-            - Path=/
-          filters:
-            - RewritePath=/, /accounts/123/transactions
+            - Path=/accounts/{accountId}/transactions/**
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
