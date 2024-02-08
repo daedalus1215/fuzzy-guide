@@ -1,5 +1,6 @@
 package com.example.goldenpathgateway;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,5 @@ public class Account implements Serializable {
     private long accountId;
 
     private String memberName;
-
     private Set<Transaction> transactions;
 }

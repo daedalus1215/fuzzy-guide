@@ -13,7 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Transaction implements Serializable {
     private long transactionId;
-
     private long date;
     private double amount;
     private String merchantName;
