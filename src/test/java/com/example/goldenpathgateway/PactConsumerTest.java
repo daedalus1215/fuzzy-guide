@@ -44,7 +44,8 @@ public class PactConsumerTest {
     @Pact(consumer = "Transactions")
     public RequestResponsePact transactionsWithSpecificAccountId(PactDslWithProvider builder) {
         return builder
-                .uponReceiving("A request to your gateway with specific accountId")
+                .given("accountId")
+                .uponReceiving("A request to your gateway with the specific accountId")
                 .path("/accounts/" + ACCOUNT_ID + "/transactions")
                 .method("GET")
                 .willRespondWith()
@@ -67,6 +68,7 @@ public class PactConsumerTest {
     public RequestResponsePact transactionsWithSpecificAccountIdAndFromDate(PactDslWithProvider builder) {
 
         return builder
+                .given("accountId and fromDate")
                 .uponReceiving("A request to your gateway with specific accountId and fromDate")
                 //@TODO: Clean this up
                 .path("/accounts/" + ACCOUNT_ID + "/transactions")
