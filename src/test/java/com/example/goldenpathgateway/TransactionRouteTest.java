@@ -85,14 +85,13 @@ public class TransactionRouteTest {
         final String expected = JSONTestUtils.readFile("expectedTransactionsResponse.json");
 
         // Act
-        ResponseEntity<String> actual = restTemplate.getForEntity(
+        final ResponseEntity<String> actual = restTemplate.getForEntity(
                 mockServer.getUrl().concat("/accounts/555/transactions"),
                 String.class);
 
         // Assert
         assertEquals(200, actual.getStatusCodeValue());
         JSONAssert.assertEquals(expected, actual.getBody(), JSONCompareMode.LENIENT);
-
     }
 
     @Test
