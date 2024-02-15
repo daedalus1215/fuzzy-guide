@@ -55,27 +55,27 @@ public class TransactionRouteTest {
                 .toPact();
     }
 
-//    @Pact(consumer = "TransactionConsumer")
-//    public RequestResponsePact transactionsFromDate(PactDslWithProvider builder) {
-//        return builder
-//                .given("transactions exist with accountId and date equal or greater than fromDate")
-//                .uponReceiving("accountId and fromDate")
-//                .path("/accounts/555/transactions")
-//                .method("GET")
-//                .matchQuery("fromDate", "\\d{4}-\\d{2}-\\d{2}")
-//                .willRespondWith()
-//                .status(200)
-//                .body(newJsonArray((o) -> o.object((refs) -> {
-//                    refs.stringType("transactionId", "2");
-//                    refs.stringType("date", "2022-02-02");
-//                    refs.numberType("amount", 350.0);
-//                    refs.stringType("merchantName", "Walmart");
-//                    refs.stringType("summary", "Standing Desk");
-//                    refs.stringType("accountId", "555");
-//                }))
-//                        .build())
-//                .toPact();
-//    }
+    @Pact(consumer = "TransactionConsumer")
+    public RequestResponsePact transactionsFromDate(PactDslWithProvider builder) {
+        return builder
+                .given("transactions exist with accountId and date equal or greater than fromDate")
+                .uponReceiving("accountId and fromDate")
+                .path("/accounts/555/transactions")
+                .method("GET")
+                .matchQuery("fromDate", "2022-02-02")
+                .willRespondWith()
+                .status(200)
+                .body(newJsonArray((o) -> o.object((refs) -> {
+                    refs.stringType("transactionId", "2");
+                    refs.stringType("date", "2022-02-02");
+                    refs.numberType("amount", 350.0);
+                    refs.stringType("merchantName", "Walmart");
+                    refs.stringType("summary", "Standing Desk");
+                    refs.stringType("accountId", "555");
+                }))
+                        .build())
+                .toPact();
+    }
 
     @Test
     @PactTestFor(pactMethod = "transactions", port = "9999")
@@ -94,21 +94,21 @@ public class TransactionRouteTest {
         JSONAssert.assertEquals(expected, actual.getBody(), JSONCompareMode.LENIENT);
 
     }
-//
-//    @Test
-//    @PactTestFor(pactMethod = "transactionsFromDate", port = "9999")
-//    public void withAccountIdAndFromDate_getAccountTransactions_returnsExpectedTransaction(MockServer mockServer) throws IOException, JSONException {
-//        // Arrange
-//        final RestTemplate restTemplate = new RestTemplate();
-//        final String expected = JSONTestUtils.readFile("expectedFilteredTransactionsResponse.json");
-//
-//        // Act
-//        final ResponseEntity<String> actual = restTemplate.getForEntity(
-//                mockServer.getUrl().concat("/accounts/555/transactions?fromDate=2022-02-02"),
-//                String.class);
-//
-//        // Assert
-//        assertEquals(200, actual.getStatusCodeValue());
-//        JSONAssert.assertEquals(expected, actual.getBody(), JSONCompareMode.LENIENT);
-//    }
+
+    @Test
+    @PactTestFor(pactMethod = "transactionsFromDate", port = "9999")
+    public void withAccountIdAndFromDate_getAccountTransactions_returnsExpectedTransaction(MockServer mockServer) throws IOException, JSONException {
+        // Arrange
+        final RestTemplate restTemplate = new RestTemplate();
+        final String expected = JSONTestUtils.readFile("expectedFilteredTransactionsResponse.json");
+
+        // Act
+        final ResponseEntity<String> actual = restTemplate.getForEntity(
+                mockServer.getUrl().concat("/accounts/555/transactions?fromDate=2022-02-02"),
+                String.class);
+
+        // Assert
+        assertEquals(200, actual.getStatusCodeValue());
+        JSONAssert.assertEquals(expected, actual.getBody(), JSONCompareMode.LENIENT);
+    }
 }
