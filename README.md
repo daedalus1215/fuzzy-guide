@@ -1,4 +1,5 @@
 # fuzzy-guide
+* Has Pact consumer test
 
 ## What is this repo?
 This repo demonstrates consumer Pact contract tests. Contract tests start with consumers of APIs.
